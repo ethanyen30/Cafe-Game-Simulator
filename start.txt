@@ -1,0 +1,7 @@
+price tapioca
+price tea
+price brown sugar
+price pasta
+price tomato
+price cheese
+price egg
