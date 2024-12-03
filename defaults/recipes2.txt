@@ -1,0 +1,12 @@
+name: salty water
+ingredients: water, salt
+steps:
+1. heat water
+2. mix salt
+
+name: popcorn
+ingredients: corn, butter, salt
+steps:
+1. heat corn
+2. add butter
+3. sprinkle salt

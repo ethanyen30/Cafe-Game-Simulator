@@ -1,0 +1,30 @@
+name: bubble tea
+ingredients: tapioca, tea, brown sugar
+steps:
+1. boil water
+2. put tapioca
+3. brew tea
+4. mix tapioca
+5. mix tea
+6. add brown sugar
+
+name: spaghetti
+ingredients: pasta, tomato, cheese
+steps:
+1. boil water
+2. add pasta
+3. cook tomato
+4. add salt
+5. add pasta
+6. grate cheese
+
+name: scrambled eggs
+ingredients: egg, cheese
+steps:
+1. cook egg
+2. add cheese
+
+name: pure water
+ingredients: water
+steps:
+1. boil water
