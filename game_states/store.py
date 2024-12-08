@@ -6,6 +6,17 @@ class Store(State):
         self.cart = {}
         self.prices = {}
     
+    def get_help(self):
+        instructions = {
+                        "price <ingredient>": "checks the price of an ingredient",
+                        "take <ingredient>": "takes ingredient from the shelf",
+                        "cart": "displays what you have in the cart",
+                        "prices": "displays all ingredients and prices in the store",
+                        "return <ingredient>": "returns the ingredient back onto the shelf",
+                        "checkout": "checks out of the store and goes back to the cafe"
+                        }
+        super().get_help(self.__class__.__name__, instructions)
+
     def do(self, chef, action):
         store_re = re.compile(f"^((price {self.noun_re})|(take {self.noun_re})|"
                               f"(cart)|(checkout)|(prices)|(return {self.noun_re}))$")

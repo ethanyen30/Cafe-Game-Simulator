@@ -15,7 +15,7 @@ class CafeGame:
         
         self.state = self.cafe
 
-        self.start_time = time.time()
+        self.start_time = 0
     
     def check_file_formats(self):
         invalid = False
@@ -33,8 +33,17 @@ class CafeGame:
             return False
         else:
             return True
+        
+    def start_timer(self):
+        self.start_time = time.time()
 
     def input_action(self, action):
+
+        # Help action
+        if action == "help":
+            self.state.get_help()
+            return
+
         # Actions that chef can do at any time
         ret_chef = self.chef.chef_action(action, self.state.__class__.__name__)
         if ret_chef == "success":
@@ -50,5 +59,7 @@ class CafeGame:
                     self.state = self.pantry
                 case "store":
                     self.state = self.store
+                case "served":
+                    return "served"
                 case _:
                     pass

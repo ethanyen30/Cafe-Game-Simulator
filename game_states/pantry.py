@@ -6,6 +6,15 @@ class Pantry(State):
         self.pantry = {}
         self.initialize_pantry_defaults(pantry_file)
 
+    def get_help(self):
+        instructions = {
+                        "store <ingredient>": "stores an ingredient from inventory to pantry",
+                        "get <ingredient>": "gets an ingredient from pantry to inventory",
+                        "close": "closes the pantry and goes back to the cafe",
+                        "look": "displays what's in the pantry"
+                        }
+        super().get_help(self.__class__.__name__, instructions)
+
     def do(self, chef, action):
         pantry_re = re.compile(f"^((store {self.noun_re})|(get {self.noun_re})|(close)|(look))$")
         """

@@ -27,3 +27,15 @@ class State:
 
     def do(self, chef, action, state):
         pass
+
+    def get_help(self, state_name=None, instructions=None):
+        print("\nHelp arrived:")
+        print("- Any words left of the colon are commands you can type")
+        print("- Anything in <> are variables so either ingredients, food, or customers\n")
+        print("Remember as the chef, you can always do:")
+        print("\tls:      lists inventory")
+        print("\trecipes: view recipe book")
+        print("\twallet:  see how much money you have\n")
+
+        print(f"Here's what you can do in the {state_name}")
+        dict_printer(instructions, "Commands", "Description")

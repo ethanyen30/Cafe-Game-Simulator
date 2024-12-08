@@ -17,8 +17,11 @@ class Customer:
     def order_chooser(self, available_foods):
         self.order = random.choice(available_foods)
     
+    def wait_time(self, last_checked):
+        return round(last_checked - self.arrival, 1)
+
     def tip(self, departure):
-        time_to_serve = round(departure - self.arrival, 1)
+        time_to_serve = self.wait_time(departure)
         print(f"It took you {time_to_serve}s to serve to {self.name}")
         multiplier = round(60/time_to_serve,1)
         return (random.randint(500, 1500) / 100)*multiplier

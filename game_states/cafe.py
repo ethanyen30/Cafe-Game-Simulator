@@ -17,6 +17,20 @@ class Cafe(State):
         self.making_step = 1    # recipe step number
         self.used_ingredients = []
 
+    def get_help(self):
+        instructions = {
+                        "make <ingredient>": "begin making an ingredient",
+                        "serve <food> to <customer>": "serve some food to a customer",
+                        "orders": "lists the customers in the cafe and their orders",
+                        "lc": "lists the ingredients on the counter",
+                        "set <ingredient>": "sets an ingredient from your inventory to the counter",
+                        "clear <ingredient>": "clears an ingredient from the counter to your inventory",
+                        "open pantry": "goes to the pantry",
+                        "go to store": "goes to store",
+                        "completed": "shows the completed foods that you have made"
+                        }
+        super().get_help(self.__class__.__name__, instructions)
+
     # Action to be done
     def do(self, chef, action):
         restaurant_re = re.compile(f"^((make {self.noun_re})"
@@ -103,7 +117,7 @@ class Cafe(State):
         elif matched.group(5) != None:
             food = matched.group(6)
             customer = matched.group(8)
-            self.serve(chef, food, customer)
+            return self.serve(chef, food, customer)
 
         # List orders
         elif matched.group(10) != None:
@@ -169,6 +183,9 @@ class Cafe(State):
                 print(f"{recipe['name']} is completed")
         else:
             print("wrong step")
+            if dict_decrement(self.counter, ingredient, False) != "fail":
+                print(f"idk why you '{verb}'ed {ingredient} but you used it so you lost 1 {ingredient}")
+                
 
     def stop_making(self):
         print(f"Stopped making {self.making}")
@@ -196,6 +213,7 @@ class Cafe(State):
                 departure = round(time.time(), 1)
                 self.completed.remove(food)
                 earnings = self.customers[customer_index].tip(departure)
+                wait_time = self.customers[customer_index].wait_time(departure)
                 self.customers.pop(customer_index)
 
                 chef.customers_fed += 1
@@ -203,6 +221,16 @@ class Cafe(State):
 
                 print(f"Served {food} to {customer}")
                 print(f"{customer} gave you {earnings:.2f}$")
+
+                serving_stats = {
+                                "Customer name": customer,
+                                "Food ordered": food,
+                                "Cooking time": wait_time,
+                                "Earnings": earnings
+                                }
+                chef.servings.append(serving_stats)
+
+                return "served"
 
             else:
                 print(f"{customer} didn't order {food}")
@@ -214,11 +242,17 @@ class Cafe(State):
     ################################
     def list_orders(self):
         print("Here are your orders:")
+        if self.customers == []:
+            print("None")
+            return
         for c in self.customers:
             print(f"- {c.name} ordered {c.order}")
 
     def list_completed(self):
         print("Here are the completed foods:")
+        if self.completed == []:
+            print("None")
+            return
         for completed in self.completed:
             print("- " + completed)
 
@@ -278,4 +312,4 @@ class Cafe(State):
         c.order_chooser(self.available_foods)
         print(f"\n{c.name} has arrived and they want {c.order}")
         self.customers.append(c)
-        print("~> ", end="")
+

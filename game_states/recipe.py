@@ -11,6 +11,14 @@ class Recipe(State):
 
         self.prev_state = "cafe"
 
+    def get_help(self):
+        instructions = {
+                        "flip": "Flips to next page of the book",
+                        "back": "Flips back a page of the book",
+                        "close": "Closes the book and returns to place"
+                        }
+        super().get_help(self.__class__.__name__, instructions)
+
     # Actions to be done
     def do(self, _, action):
         if action == "flip":
@@ -156,11 +164,6 @@ class Recipe(State):
             for step in recipe['steps']:
                 print(f"\t\t{step_count}. {step}")
                 step_count += 1
-            
-            print()
-            print("'flip' to go to next recipe")
-            print("'back' to go to prev recipe")
-            print("'close' to close the book")
         print()
 
     # Returns the recipe dict given the name of the recipe

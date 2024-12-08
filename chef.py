@@ -1,3 +1,4 @@
+import time
 from utils import *
 from game_states.recipe import Recipe
 
@@ -8,7 +9,9 @@ class Chef:
         self.max_inventory = max_inventory
         self.wallet = starting_money
         self.customers_fed = 0
+        self.servings = []
         self.recipes = Recipe(recipe_file)
+        self.start_time = time.time()
         
     def list_inventory(self):
         print(f"\nInventory: (Max capacity = {self.max_inventory})")
@@ -36,8 +39,28 @@ class Chef:
         print(f"{self.name} has {self.wallet:.2f}$")
 
     def get_stats(self):
-        print(f"Customers served: {self.customers_fed}")
+        customer_width = 13
+        order_width = 15
+        time_width = 10
+        earnings_width = 13
+        print("Game History:")
+        header = f"{"Customer":<{customer_width}}" + \
+                 f"{"Orders":<{order_width}}" + \
+                 f"{"Time":<{time_width}}" + \
+                 f"{"Earnings":<{earnings_width}}"
+        print("-" * len(header))
+        print(header)
+        print("-" * len(header))
+        for serving in self.servings:    
+            print(f"{serving['Customer name']:<{customer_width}}" + \
+                  f"{serving['Food ordered']:<{order_width}}" + \
+                  f"{str(serving['Cooking time']) + "s":<{time_width}}" + \
+                  f"{str(round(serving['Earnings'], 2)) + "$":<{earnings_width}}")
+        print("-" * len(header))
+        print(f"Customers served: {len(self.servings)}")
         print(f"Money: {self.wallet:.2f}$")
+        print(f"Money earned: {self.wallet-15:.2f}$")
+        print(f"Time played: {round(time.time() - self.start_time, 1)} seconds")
 
     def chef_action(self, action, state):
         # Actions that chef can do at any time

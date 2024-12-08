@@ -1,0 +1,29 @@
+You are playing a text-based cafe simulator game.
+You have an inventory, a wallet, and a recipe book.
+    - inventory will contain an item and a count associated with item: start = None
+        - there is a max amount of items you can have in the inventory
+    - wallet will have money in usd: start = 15 (default)
+    - recipe book will have some recipes: default recipe book is loaded if not specified
+
+Your goal is to serve customers some food by following the recipe book.
+Customers will arrive at an interval (default 45 seconds).
+However fast you make it will determine the tip that they give you.
+The recipe book will have the ingredients needed to make the recipe.
+Ingredients can be found in the pantry (loaded with default ingredients) or from the store.
+
+At the start, you are in the cafe where you can:
+    - make foods
+    - open pantry
+    - go to store
+There is a counter where you must set ingredients on to make the food itself.
+The counter also has a max capacity and to free space, you can always place things in the pantry.
+The inventory should be the medium to transfer between pantry and counter
+
+At the store, you must ask for the price of an ingredient first before buying it.
+You can check prices and your cart.
+When done shopping, you can checkout.
+
+If at any point, you don't know what to do, just type 'help' and there will be a list
+of commands that you can perform.
+
+Press enter to start
