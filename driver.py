@@ -10,7 +10,7 @@ class Driver:
                  pantry_file="defaults/pantry.txt",
                  launch_file="defaults/launch_screen.txt",
                  customer_interval=45, max_customers=5,
-                 mode="testing"):
+                 mode="timed"):
         subprocess.run('cls', shell=True)
         if player_name == None:
             player_name = input("Choose player name: ")
@@ -74,5 +74,5 @@ class Driver:
                 total_customers += 1
             time.sleep(1)
 
-game = Driver(max_customers=1,recipe_file="defaults/recipes2.txt")
+game = Driver()
 game.start()

@@ -9,13 +9,13 @@ steps:
 6. add brown sugar
 
 name: spaghetti
-ingredients: pasta, tomato, cheese
+ingredients: noodle, tomato, cheese
 steps:
 1. boil water
-2. add pasta
+2. add noodle
 3. cook tomato
 4. add salt
-5. add pasta
+5. add noodle
 6. grate cheese
 
 name: scrambled eggs
@@ -28,3 +28,11 @@ name: pure water
 ingredients: water
 steps:
 1. boil water
+
+name: ramen
+ingredients: noodle, egg, spice packet
+steps:
+1. boil water
+2. add spice packet
+3. add noodle
+4. cook egg

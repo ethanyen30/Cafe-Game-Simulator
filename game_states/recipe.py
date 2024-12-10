@@ -4,7 +4,8 @@ class Recipe(State):
     def __init__(self, recipe_file):
         super().__init__()
         self.recipes = self.load_recipe(recipe_file)
-        self.count = len(self.recipes)
+
+        self.count = len(self.recipes) if self.recipes else 0
 
         # Current recipe (1 indexed)
         self.curr = 1
@@ -71,7 +72,6 @@ class Recipe(State):
 
         recipes = []
         recipe_count = 1
-
         with open(file) as f:
             finished = False
             while not finished:
@@ -104,7 +104,6 @@ class Recipe(State):
                     step_list = []
                     step = f.readline()
                     step_number = 1
-                    
                     while step != "\n":
                         if step == "":
                             finished = True
@@ -176,6 +175,7 @@ class Recipe(State):
     # Returns available foods
     def get_available_foods(self):
         af = []
-        for r in self.recipes:
-            af.append(r['name'])
+        if self.recipes:
+            for r in self.recipes:
+                af.append(r['name'])
         return af
