@@ -11,17 +11,32 @@ class Driver:
                  launch_file="defaults/launch_screen.txt",
                  customer_interval=45, max_customers=5,
                  mode="timed"):
-        subprocess.run('cls', shell=True)
-        if player_name == None:
-            player_name = input("Choose player name: ")
-        self.game = CafeGame(player_name, starting_money, max_inventory, max_counter,
-                             recipe_file, customer_names_file, pantry_file)
+        
+        self.player_name = player_name
+        self.starting_money = starting_money
+        self.max_inventory = max_inventory
+        self.max_counter = max_counter
+
+        self.recipe_file = recipe_file
+        self.customer_names_file = customer_names_file
+        self.pantry_file = pantry_file
+        self.launch_file = launch_file
+
+        self.customer_interval = customer_interval
         self.max_customers = max_customers
+        self.selected_mode = mode
+
+        subprocess.run('cls', shell=True)
+        if self.player_name == None:
+            self.player_name = input("Choose player name: ")
+        self.game = CafeGame(self.player_name, self.starting_money, self.max_inventory, self.max_counter,
+                             self.recipe_file, self.customer_names_file, self.pantry_file)
+        
         self.running = True
         self.modes = ["testing", "timed"]
-        self.selected_mode = mode
-        self.thread = Thread(target=self.customer_thread_function, args=(customer_interval, self.max_customers), daemon=True)
-        self.launch_screen(launch_file)
+        
+        self.thread = Thread(target=self.customer_thread_function, args=(self.customer_interval, self.max_customers), daemon=True)
+        self.launch_screen(self.launch_file)
 
     def start(self):
         if not self.game.check_file_formats():
@@ -73,6 +88,3 @@ class Driver:
                 self.game.cafe.new_customer()
                 total_customers += 1
             time.sleep(1)
-
-game = Driver()
-game.start()
